@@ -10,6 +10,7 @@ const AtbashBase = () => {
   const [encoded, setEncoded] = useState(false);
   const [lang, setLang] = useState("Русский");
   const [valid, setValid] = useState(false);
+  const [onIndex, setOnIndex] = useState(0);
 
   const arrButtons = [
     {
@@ -39,10 +40,22 @@ const AtbashBase = () => {
   const onClickLang = (index) => {
     if (index === 0) {
       setLang("Русский");
-      setValid(!validateAtbash(values, lang));
+      setOnIndex(index);
+
+      if (values === "") {
+        setValid(false);
+      } else {
+        setValid(!validateAtbash(values, lang));
+      }
     } else {
       setLang("Английский");
-      setValid(!validateAtbash(values, lang));
+      setOnIndex(index);
+
+      if (values === "") {
+        setValid(false);
+      } else {
+        setValid(!validateAtbash(values, lang));
+      }
     }
   };
 
@@ -53,6 +66,7 @@ const AtbashBase = () => {
       arrButtons={arrButtons}
       lang={lang}
       valid={valid}
+      onIndex={onIndex}
       onSubmit={onSubmit}
       onChange={onChange}
       onClickLang={onClickLang}

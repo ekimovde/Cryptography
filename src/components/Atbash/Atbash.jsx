@@ -11,6 +11,7 @@ const Atbash = ({
   arrButtons,
   lang,
   valid,
+  onIndex,
   onSubmit,
   onChange,
   onClickLang,
@@ -56,6 +57,7 @@ const Atbash = ({
                       className={classNames(`form__btn ${item.className}`)}
                       onClick={() => onClickLang(index)}
                       key={index}
+                      disabled={onIndex === index}
                     >
                       <img src={item.img} alt="" />
                     </button>
