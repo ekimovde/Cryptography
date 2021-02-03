@@ -1,0 +1,10 @@
+@import "styles/variables.scss";
+
+.input {
+  height: 40px;
+  background-color: $form-input-backg;
+  border: 2px solid $form-input-border;
+  padding: 0 20px;
+  color: #fff;
+  border-radius: 3px;
+}

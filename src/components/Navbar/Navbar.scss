@@ -1,0 +1,15 @@
+@import "styles/variables.scss";
+
+.navbar {
+  @extend %flex-center-between;
+  background-color: $navbar-backg;
+  padding: 15px;
+
+  .navbar_div {
+    width: 160px;
+
+    .navbar__brand {
+      height: 20px;
+    }
+  }
+}

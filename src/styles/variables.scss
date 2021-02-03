@@ -1,0 +1,118 @@
+$blue: #298cf7;
+$blue-dark: #0c62bf;
+$grey: #868585;
+$grey-light: #b0b2b6;
+$white: #fff;
+$black-backg: #1a191d;
+$black-border: #0b0b0b;
+$violet: #8057d7;
+$grey-backg: #373737;
+$grey-border: #5b5b5b;
+$grey-backg-dark: #26272b;
+
+// --- Navbar ---
+$navbar-backg: #191c1f;
+$navbar-icon: #999c9f;
+$navbar-input: #0c0f12;
+
+// --- Main ---
+$main-backg: #222028;
+
+// --- Home ---
+$home-switch-fz: 16px;
+
+// --- Form ---
+$form-backg: #36393f;
+$form-input-backg: #313339;
+$form-input-border: #222428;
+
+%flex-center-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%flex-center-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+%flex-center {
+  display: flex;
+  align-items: center;
+}
+
+%forms {
+  width: 480px;
+  padding: 30px;
+  background-color: $form-backg;
+  border-radius: 6px;
+  margin-top: 70px;
+
+  .form__head {
+    text-align: center;
+
+    .form__title {
+      color: #fff;
+    }
+
+    .form__text {
+      margin-top: 8px;
+      color: $grey-light;
+      font-size: 16px;
+    }
+  }
+
+  .form__btn {
+    margin-top: 20px;
+  }
+
+  .form__offer {
+    margin-top: 20px;
+
+    .form__block {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .form__link {
+    color: $blue;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    margin-top: 8px;
+    display: block;
+    width: 120px;
+
+    &:hover {
+      color: $blue-dark;
+    }
+
+    &.auths__link-register {
+      width: 165px;
+    }
+  }
+
+  .form__footer {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+
+    p {
+      color: $grey;
+      margin-right: 4px;
+    }
+
+    .form__link {
+      margin-top: 0;
+      width: 140px;
+    }
+  }
+}
