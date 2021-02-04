@@ -31,9 +31,20 @@ const Home = ({ array }) => {
                     <p className="home__text">{arr.text}</p>
                   </div>
 
-                  <NavLink to={arr.url} className="home__btn">
-                    Посмотреть
-                  </NavLink>
+                  {arr.status === "complete" ? (
+                    <NavLink to={arr.url} className="home__btn">
+                      Посмотреть
+                    </NavLink>
+                  ) : (
+                    <div
+                      className={classNames("home__btn", {
+                        disabled:
+                          arr.status === "active" || arr.status === "next",
+                      })}
+                    >
+                      Посмотреть
+                    </div>
+                  )}
                 </div>
               </li>
             );

@@ -1,0 +1,10 @@
+@import "styles/variables.scss";
+
+.scitula {
+  @extend %flex-center-center;
+
+  .form {
+    @extend %forms;
+    width: 350px;
+  }
+}
