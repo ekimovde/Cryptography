@@ -54,7 +54,7 @@ const AtbashBase = () => {
       if (values === "") {
         setValid(false);
       } else {
-        setValid(!validateAtbash(values, lang));
+        setValid(!validate.validateAtbash(values, lang));
       }
     }
   };
