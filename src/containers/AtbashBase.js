@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Atbash } from "components";
 import { arrowLeft, arrowRight } from "assets";
 
-import { validateAtbash, encodeAtbash } from "utils";
+import { validate, encodeAtbash } from "utils";
 
 const AtbashBase = () => {
   const [values, setValues] = useState("");
@@ -32,7 +32,7 @@ const AtbashBase = () => {
   };
 
   const onChange = (event) => {
-    setValid(validateAtbash(event.target.value, lang));
+    setValid(validate.validateAtbash(event.target.value, lang));
 
     setValues(event.target.value);
   };
@@ -45,7 +45,7 @@ const AtbashBase = () => {
       if (values === "") {
         setValid(false);
       } else {
-        setValid(!validateAtbash(values, lang));
+        setValid(!validate.validateAtbash(values, lang));
       }
     } else {
       setLang("Английский");
