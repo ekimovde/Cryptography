@@ -15,8 +15,6 @@ const validate = {
     }
   },
   validateScitula: (value) => {
-    console.log(value);
-
     return value.length !== 0 ? true : false;
   },
 };
