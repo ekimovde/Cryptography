@@ -16,7 +16,7 @@ const HomeBase = () => {
       title: "Шифр Скитала",
       text:
         "Инструмент, используемый для осуществления перестановочного шифрования.",
-      status: "active",
+      status: "complete",
       url: "/scitula",
     },
     {
