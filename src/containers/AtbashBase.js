@@ -1,75 +1,127 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Atbash } from "components";
-import { arrowLeft, arrowRight } from "assets";
 
-import { validate, encodeAtbash } from "utils";
+import { validate, atbash } from "utils";
 
 const AtbashBase = () => {
-  const [values, setValues] = useState("");
-  const [encoded, setEncoded] = useState(false);
+  const [text, setText] = useState("");
   const [lang, setLang] = useState("Русский");
-  const [valid, setValid] = useState(false);
-  const [onIndex, setOnIndex] = useState(0);
+  const [type, setType] = useState("Зашифровать");
 
-  const arrButtons = [
-    {
-      className: "form__btn-right",
-      img: arrowLeft,
-    },
-    {
-      className: "form__btn-left",
-      img: arrowRight,
-    },
-  ];
+  const [textDirty, setTextDirty] = useState(false);
+  const [textError, setTextError] = useState("Текст не может быть пустым!");
+  const [formValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    if (textError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [textError]);
+
+  const blurHandler = (event) => {
+    switch (event.target.name) {
+      case "text":
+        setTextDirty(true);
+        break;
+      default:
+        return null;
+    }
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    encodeAtbash(lang, values, setValues);
+    if (type === "Зашифровать") {
+      atbash(lang, text, setText);
 
-    setEncoded(!encoded);
+      setType("Расшифровать");
+    } else {
+      atbash(lang, text, setText);
+
+      setType("Зашифровать");
+    }
   };
 
-  const onChange = (event) => {
-    setValid(validate.validateAtbash(event.target.value, lang));
+  const onChangeText = (event) => {
+    setText(event.target.value);
 
-    setValues(event.target.value);
+    if (!validate.validatePolybiusSquare(event.target.value, lang)) {
+      setTextError("Некорректный текст!");
+    } else {
+      setTextError("");
+    }
+
+    if (!event.target.value) {
+      setTextError("Текст не может быть пустым!");
+    }
   };
 
-  const onClickLang = (index) => {
-    if (index === 0) {
-      setLang("Русский");
-      setOnIndex(index);
-
-      if (values === "") {
-        setValid(false);
-      } else {
-        setValid(!validate.validateAtbash(values, lang));
-      }
+  const onClickLangAdd = () => {
+    if (lang !== "Русский") {
+      return;
     } else {
       setLang("Английский");
-      setOnIndex(index);
+    }
 
-      if (values === "") {
-        setValid(false);
-      } else {
-        setValid(!validate.validateAtbash(values, lang));
-      }
+    if (text === "") {
+      setTextError("Текст не может быть пустым!");
+    } else if (validate.validatePolybiusSquare(text, lang)) {
+      setTextError("Некорректный текст!");
+    } else {
+      setTextError("");
+    }
+  };
+
+  const onClickLangSub = () => {
+    if (lang !== "Английский") {
+      return;
+    } else {
+      setLang("Русский");
+    }
+
+    if (text === "") {
+      setTextError("Текст не может быть пустым!");
+    } else if (validate.validatePolybiusSquare(text, lang)) {
+      setTextError("Некорректный текст!");
+    } else {
+      setTextError("");
+    }
+  };
+
+  const onClickTypeAdd = () => {
+    if (type !== "Зашифровать") {
+      return;
+    } else {
+      setType("Расшифровать");
+    }
+  };
+
+  const onClickTypeSub = () => {
+    if (type !== "Расшифровать") {
+      return;
+    } else {
+      setType("Зашифровать");
     }
   };
 
   return (
     <Atbash
-      values={values}
-      encoded={encoded}
-      arrButtons={arrButtons}
+      text={text}
+      formValid={formValid}
       lang={lang}
-      valid={valid}
-      onIndex={onIndex}
+      type={type}
+      textDirty={textDirty}
+      textError={textError}
       onSubmit={onSubmit}
-      onChange={onChange}
-      onClickLang={onClickLang}
+      blurHandler={blurHandler}
+      onChangeText={onChangeText}
+      onClickLangAdd={onClickLangAdd}
+      onClickLangSub={onClickLangSub}
+      onClickTypeAdd={onClickTypeAdd}
+      onClickTypeSub={onClickTypeSub}
     />
   );
 };

@@ -1,0 +1,15 @@
+@import "styles/variables.scss";
+
+.form {
+  @extend %forms;
+  width: 350px;
+
+  .form__offer {
+    .form__block {
+      .form__error {
+        color: $error;
+        margin-top: 8px;
+      }
+    }
+  }
+}

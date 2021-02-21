@@ -2,39 +2,4 @@
 
 .scitula {
   @extend %flex-center-center;
-
-  .form {
-    @extend %forms;
-    width: 350px;
-
-    .form__block {
-      &.form__block-lang {
-        .form__group {
-          display: flex;
-
-          input {
-            width: 210px;
-          }
-
-          .form__buttons {
-            margin-left: auto;
-            .form__btn {
-              height: 100%;
-              width: 40px;
-              margin-top: 0;
-              border: none;
-              cursor: pointer;
-              color: $white;
-              background-color: $form-input-backg;
-              border: 2px solid $form-input-border;
-            }
-
-            .form__btn-left {
-              margin-left: 8px;
-            }
-          }
-        }
-      }
-    }
-  }
 }

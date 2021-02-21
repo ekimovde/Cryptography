@@ -45,6 +45,9 @@ const scitula = {
         if (str[count] !== "*") {
           arr[i][j] = str[count];
           initialState += str[count];
+        } else if (str[count] === "*" && count < str.length) {
+          arr[i][j] = "";
+          initialState += "";
         }
 
         console.log(str[count], count);

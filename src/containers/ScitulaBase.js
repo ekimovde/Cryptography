@@ -1,91 +1,125 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Scitula } from "components";
-import { arrowLeft, arrowRight } from "assets";
 
 import { scitula, validate } from "utils";
 
 const ScitulaBase = () => {
-  const [values, setValues] = useState("");
-  const [encoded, setEncoded] = useState(false);
+  const [text, setText] = useState("");
   const [rows, setRows] = useState(1); // количество строк
-  const [valid, setValid] = useState(false);
+  const [type, setType] = useState("Зашифровать");
 
-  const arrButtons = [
-    {
-      className: "form__btn-right",
-      img: arrowLeft,
-    },
-    {
-      className: "form__btn-left",
-      img: arrowRight,
-    },
-  ];
+  const [textDirty, setTextDirty] = useState(false);
+  const [textError, setTextError] = useState("Текст не может быть пустым!");
+  const [formValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    if (textError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [textError]);
+
+  const blurHandler = (event) => {
+    switch (event.target.name) {
+      case "text":
+        setTextDirty(true);
+        break;
+      default:
+        return null;
+    }
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    const len = values.length;
+    const len = text.length;
     const columns = Math.floor((len - 1) / rows + 1); // количество столбцов
 
-    let array = values.split("");
+    let array = text.split("");
     let myMatrix = null;
 
-    if (encoded === false) {
+    if (type === "Зашифровать") {
       myMatrix = scitula.writeMatrixArray(rows, columns, array);
 
       console.log("1", myMatrix);
 
       const { arr, str } = scitula.encodeScitula(rows, columns, myMatrix);
 
-      setValues(str);
+      setText(str);
 
       console.log("2", arr);
-      console.log("3", values);
+      console.log("3", text);
 
-      setEncoded(!encoded);
-    } else if (encoded === true) {
+      setType("Расшифровать");
+    } else if (type === "Расшифровать") {
       const { decodeArray, decodeStr } = scitula.decodeScitula(
         rows,
         columns,
-        values
+        text
       );
 
-      setValues(decodeStr);
+      setText(decodeStr);
 
       console.log("4", decodeArray);
-      console.log("5", values);
+      console.log("5", decodeStr);
 
-      setEncoded(false);
+      setType("Зашифровать");
     }
   };
 
-  const onChange = (event) => {
-    setValues(event.target.value);
+  const onChangeText = (event) => {
+    setText(event.target.value);
 
-    setValid(validate.validateScitula(event.target.value));
+    if (!validate.validateScitula(event.target.value)) {
+      setTextError("Текст не может быть пустым!");
+    } else {
+      setTextError("");
+    }
   };
 
-  const onClickAddRow = (index) => {
-    if (index === 0) {
-      if (rows !== 1) {
-        setRows(rows - 1);
-      }
-    } else if (index === 1) {
-      setRows(rows + 1);
+  const onClickRowAdd = () => {
+    setRows(rows + 1);
+  };
+
+  const onClickRowSub = () => {
+    if (rows !== 1) {
+      setRows(rows - 1);
+    }
+  };
+
+  const onClickTypeAdd = () => {
+    if (type !== "Зашифровать") {
+      return;
+    } else {
+      setType("Расшифровать");
+    }
+  };
+
+  const onClickTypeSub = () => {
+    if (type !== "Расшифровать") {
+      return;
+    } else {
+      setType("Зашифровать");
     }
   };
 
   return (
     <Scitula
-      values={values}
-      encoded={encoded}
-      arrButtons={arrButtons}
+      text={text}
       rows={rows}
-      valid={valid}
+      type={type}
+      textDirty={textDirty}
+      textError={textError}
+      formValid={formValid}
       onSubmit={onSubmit}
-      onChange={onChange}
-      onClickAddRow={onClickAddRow}
+      blurHandler={blurHandler}
+      onChangeText={onChangeText}
+      onClickRowAdd={onClickRowAdd}
+      onClickRowSub={onClickRowSub}
+      onClickTypeAdd={onClickTypeAdd}
+      onClickTypeSub={onClickTypeSub}
     />
   );
 };

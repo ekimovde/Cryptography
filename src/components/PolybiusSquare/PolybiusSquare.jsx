@@ -2,26 +2,29 @@ import React from "react";
 
 import { Form, TextArea, Switch } from "components";
 
-import "./Scitula.scss";
+import "./PolybiusSquare.scss";
 
-const Scitula = ({
+const PolybiusSquare = ({
   text,
-  rows,
-  valid,
+  keyValue,
+  lang,
   type,
   textDirty,
+  keyDirty,
   textError,
+  keyError,
   formValid,
   onSubmit,
-  blurHandler,
   onChangeText,
-  onClickRowAdd,
-  onClickRowSub,
+  blurHandler,
+  onChangeKey,
+  onClickLangAdd,
+  onClickLangSub,
   onClickTypeAdd,
   onClickTypeSub,
 }) => {
   return (
-    <div className="scitula">
+    <div className="polybius-square">
       <Form valid={formValid} type={type} onSubmit={onSubmit}>
         <div className="form__offer">
           <div className="form__block">
@@ -38,13 +41,26 @@ const Scitula = ({
             )}
           </div>
 
+          <div className="form__block">
+            <label htmlFor="key">Ключ</label>
+            <TextArea
+              name={"key"}
+              type="text"
+              value={keyValue}
+              onChange={onChangeKey}
+              onBlur={blurHandler}
+            />
+            {keyDirty && keyError && (
+              <div className="form__error">{keyError}</div>
+            )}
+          </div>
+
           <Switch
-            label={"Выберите количество строк"}
-            name={"rows"}
-            value={rows}
-            onClickAdd={onClickRowAdd}
-            onClickSub={onClickRowSub}
-            check={null}
+            label={"Выберите язык"}
+            name={"lang"}
+            value={lang}
+            onClickAdd={onClickLangAdd}
+            onClickSub={onClickLangSub}
           />
 
           <Switch
@@ -60,4 +76,4 @@ const Scitula = ({
   );
 };
 
-export default Scitula;
+export default PolybiusSquare;

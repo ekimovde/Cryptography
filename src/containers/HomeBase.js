@@ -24,7 +24,7 @@ const HomeBase = () => {
       title: "Шифр Квадрат Полибия",
       text:
         "Оригинальный код простой замены, одна из древнейших систем кодирования.",
-      status: "next",
+      status: "active",
       url: "/polybiusSquare",
     },
     {
@@ -32,7 +32,7 @@ const HomeBase = () => {
       title: "Шифр Цезаря",
       text:
         "Один из самых простых и наиболее широко известных методов шифрования.",
-      status: "next",
+      status: "active",
       url: "/caesar",
     },
   ];

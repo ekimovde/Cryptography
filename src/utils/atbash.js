@@ -1,4 +1,4 @@
-const encodeAtbash = (lang, values, setValues) => {
+const encodeOrDecodeAtbash = (lang, values, setValues) => {
   const arr_ru = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
   const arr_RU = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
@@ -10,9 +10,11 @@ const encodeAtbash = (lang, values, setValues) => {
 
   if (lang === "Русский") {
     stringToSplit.forEach((item) => {
-      if (item.toUpperCase() === item && item !== " ") {
+      if (item.toUpperCase() === item && item !== " " && !/^\d+$/.test(+item)) {
         stringEncoded += arr_RU[32 - (arr_RU.indexOf(item) + 1) + 1];
-      } else if (item !== " ") {
+      } else if (/^\d+$/.test(+item) && item !== " ") {
+        stringEncoded += item;
+      } else if (item !== " " && !/^\d+$/.test(+item)) {
         stringEncoded += arr_ru[32 - (arr_ru.indexOf(item) + 1) + 1];
       } else if (item === " ") {
         stringEncoded += " ";
@@ -20,9 +22,11 @@ const encodeAtbash = (lang, values, setValues) => {
     });
   } else if (lang === "Английский") {
     stringToSplit.forEach((item) => {
-      if (item.toUpperCase() === item && item !== " ") {
+      if (item.toUpperCase() === item && item !== " " && !/^\d+$/.test(+item)) {
         stringEncoded += arr_EN[25 - (arr_EN.indexOf(item) + 1) + 1];
-      } else if (item !== " ") {
+      } else if (/^\d+$/.test(+item) && item !== " ") {
+        stringEncoded += item;
+      } else if (item !== " " && !/^\d+$/.test(+item)) {
         stringEncoded += arr_en[25 - (arr_en.indexOf(item) + 1) + 1];
       } else if (item === " ") {
         stringEncoded += " ";
@@ -33,4 +37,4 @@ const encodeAtbash = (lang, values, setValues) => {
   return setValues(stringEncoded);
 };
 
-export default encodeAtbash;
+export default encodeOrDecodeAtbash;
