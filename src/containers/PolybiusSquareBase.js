@@ -41,16 +41,23 @@ const PolybiusSquareBase = () => {
 
     let arrValues = text.split("");
 
-    let alph = await polybiusSquare.createAlphabet(text, keyValue, lang);
+    if (lang === "Английский") {
+      if (arrValues.indexOf("J") !== -1) {
+        let index = arrValues.indexOf("J");
+        arrValues[index] = "I";
+      }
+    }
+
+    let alph = await polybiusSquare.createAlphabet(keyValue, lang);
 
     if (type === "Зашифровать") {
-      setText(polybiusSquare.encoded(alph, arrValues));
+      setText(polybiusSquare.encoded(alph, arrValues, lang));
 
       setType("Расшифровать");
     } else if (type === "Расшифровать") {
       setType("Зашифровать");
 
-      setText(polybiusSquare.decoded(alph, text));
+      setText(polybiusSquare.decoded(alph, text, lang));
     }
   };
 
