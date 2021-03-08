@@ -8,8 +8,8 @@
   .home__form {
     height: 640px;
     width: 630px;
-    overflow: scroll;
-    scrollbar-width: none;
+    overflow: auto;
+    padding: 25px;
 
     .home__menu {
       height: 100%;
