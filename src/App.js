@@ -2,7 +2,18 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import { NavbarBase } from "containers";
-import { Home, Atbash, Scitula, PolybiusSquare, Caesar } from "pages";
+import {
+  HomeBase,
+  AtbashBase,
+  ScitulaBase,
+  PolybiusSquareBase,
+  CaesarBase,
+  CardanoBase,
+  RichelieuBase,
+  DiskBase,
+  GronsfeldBase,
+  VigenerBase,
+} from "containers";
 
 import "styles/index.scss";
 
@@ -12,11 +23,16 @@ function App() {
       <NavbarBase />
 
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/atbash" component={Atbash} />
-        <Route path="/scitula" component={Scitula} />
-        <Route path="/polybiusSquare" component={PolybiusSquare} />
-        <Route path="/caesar" component={Caesar} />
+        <Route exact path="/" component={HomeBase} />
+        <Route path="/atbash" component={AtbashBase} />
+        <Route path="/scitula" component={ScitulaBase} />
+        <Route path="/polybiusSquare" component={PolybiusSquareBase} />
+        <Route path="/caesar" component={CaesarBase} />
+        <Route path="/cardano" component={CardanoBase} />
+        <Route path="/richelieu" component={RichelieuBase} />
+        <Route path="/disk" component={DiskBase} />
+        <Route path="/gronsfeld" component={GronsfeldBase} />
+        <Route path="/vigener" component={VigenerBase} />
         <Redirect to="/" />
       </Switch>
     </div>

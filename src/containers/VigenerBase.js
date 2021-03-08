@@ -1,66 +1,47 @@
 import React, { useState, useEffect } from "react";
 
-import { PolybiusSquare } from "components";
-import { validate, polybiusSquare } from "utils";
+import { Vigener } from "components";
 
-const PolybiusSquareBase = () => {
+import { validate, atbash } from "utils";
+
+const VigenerBase = () => {
   const [text, setText] = useState("");
-  const [keyValue, setKeyValue] = useState("");
   const [lang, setLang] = useState("Русский");
   const [type, setType] = useState("Зашифровать");
 
   const [textDirty, setTextDirty] = useState(false);
-  const [keyDirty, setKeyDirty] = useState(false);
   const [textError, setTextError] = useState("Текст не может быть пустым!");
-  const [keyError, setKeyError] = useState("Ключ не может быть пустым!");
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if (textError || keyError) {
+    if (textError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [textError, keyError]);
+  }, [textError]);
 
   const blurHandler = (event) => {
     switch (event.target.name) {
       case "text":
         setTextDirty(true);
         break;
-      case "key":
-        setKeyDirty(true);
-        break;
       default:
         return null;
     }
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
-    let arrValues = text.toLowerCase().split("");
-
-    if (lang === "Английский") {
-      if (arrValues.indexOf("j") !== -1) {
-        let index = arrValues.indexOf("j");
-        arrValues[index] = "i";
-      }
-    }
-
-    let alph = await polybiusSquare.createAlphabet(
-      keyValue.toLowerCase(),
-      lang
-    );
-
     if (type === "Зашифровать") {
-      setText(polybiusSquare.encoded(alph, arrValues, lang));
+      atbash(lang, text, setText);
 
       setType("Расшифровать");
-    } else if (type === "Расшифровать") {
-      setType("Зашифровать");
+    } else {
+      atbash(lang, text, setText);
 
-      setText(polybiusSquare.decoded(alph, text, lang));
+      setType("Зашифровать");
     }
   };
 
@@ -78,26 +59,6 @@ const PolybiusSquareBase = () => {
     }
   };
 
-  const onChangeKey = (event) => {
-    setKeyValue(event.target.value);
-
-    if (!validate.validatePolybiusSquare(event.target.value, lang)) {
-      setKeyError("Некорректный текст!");
-    } else {
-      setKeyError("");
-    }
-
-    if (validate.validatePolybiusSquareKey(event.target.value)) {
-      setKeyError("Некорректный текст!");
-    } else {
-      setKeyError("");
-    }
-
-    if (!event.target.value) {
-      setKeyError("Ключ не может быть пустым!");
-    }
-  };
-
   const onClickLangAdd = () => {
     if (lang !== "Русский") {
       return;
@@ -111,14 +72,6 @@ const PolybiusSquareBase = () => {
       setTextError("Некорректный текст!");
     } else {
       setTextError("");
-    }
-
-    if (keyValue === "") {
-      setKeyError("Ключ не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(keyValue, lang)) {
-      setKeyError("Некорректный ключ!");
-    } else {
-      setKeyError("");
     }
   };
 
@@ -135,14 +88,6 @@ const PolybiusSquareBase = () => {
       setTextError("Некорректный текст!");
     } else {
       setTextError("");
-    }
-
-    if (keyValue === "") {
-      setKeyError("Ключ не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(keyValue, lang)) {
-      setKeyError("Некорректный ключ!");
-    } else {
-      setKeyError("");
     }
   };
 
@@ -163,20 +108,16 @@ const PolybiusSquareBase = () => {
   };
 
   return (
-    <PolybiusSquare
+    <Vigener
       text={text}
-      keyValue={keyValue}
+      formValid={formValid}
       lang={lang}
       type={type}
       textDirty={textDirty}
-      keyDirty={keyDirty}
       textError={textError}
-      keyError={keyError}
-      formValid={formValid}
       onSubmit={onSubmit}
-      onChangeText={onChangeText}
       blurHandler={blurHandler}
-      onChangeKey={onChangeKey}
+      onChangeText={onChangeText}
       onClickLangAdd={onClickLangAdd}
       onClickLangSub={onClickLangSub}
       onClickTypeAdd={onClickTypeAdd}
@@ -185,4 +126,4 @@ const PolybiusSquareBase = () => {
   );
 };
 
-export default PolybiusSquareBase;
+export default VigenerBase;

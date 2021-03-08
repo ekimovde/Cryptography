@@ -4,3 +4,8 @@ export { default as AtbashBase } from "./AtbashBase";
 export { default as ScitulaBase } from "./ScitulaBase";
 export { default as PolybiusSquareBase } from "./PolybiusSquareBase";
 export { default as CaesarBase } from "./CaesarBase";
+export { default as CardanoBase } from "./CardanoBase";
+export { default as RichelieuBase } from "./RichelieuBase";
+export { default as DiskBase } from "./DiskBase";
+export { default as GronsfeldBase } from "./GronsfeldBase";
+export { default as VigenerBase } from "./VigenerBase";

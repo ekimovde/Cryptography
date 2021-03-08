@@ -1,6 +1,6 @@
 const polybiusSquare = {
   createAlphabet: (key, lang) => {
-    let alphStr = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+    let alphStr = "abcdefghiklmnopqrstuvwxyz";
 
     // eslint-disable-next-line
     String.prototype.replaceAt = function (index, replacement) {
@@ -12,14 +12,14 @@ const polybiusSquare = {
     };
 
     if (lang === "Английский") {
-      if (key.indexOf("J") !== -1) {
-        let index = key.indexOf("J");
-        key.replaceAt(index, "J");
+      if (key.indexOf("j") !== -1) {
+        let index = key.indexOf("j");
+        key.replaceAt(index, "j");
       }
     }
 
     if (lang === "Русский") {
-      alphStr = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+      alphStr = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     }
 
     for (let i = 0; i < key.length; i++) {
