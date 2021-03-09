@@ -57,6 +57,13 @@ const validate = {
       }
     }
   },
+  validateGronsfeld: (value) => {
+    if (!/^[^А-Яа-яA-Za-z]+$/.test(value)) {
+      return true;
+    } else {
+      return false;
+    }
+  },
 };
 
 export default validate;
