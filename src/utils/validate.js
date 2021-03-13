@@ -58,10 +58,41 @@ const validate = {
     }
   },
   validateGronsfeld: (value) => {
-    if (!/^[^А-Яа-яA-Za-z]+$/.test(value)) {
+    if (/^[^А-Яа-яA-Za-z]+$/.test(value)) {
       return true;
     } else {
       return false;
+    }
+  },
+  validateVigener: (value, lang, type) => {
+    if (lang === "Русский") {
+      if (type === "text") {
+        if (!/^([^a-zA-Z]+)$/.test(value)) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        if (!/^([^а-яА-Я]+)$/.test(value) && /^([^0-9]+)$/.test(value)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    } else {
+      if (type === "text") {
+        if (!/^([^а-яА-Я]+)$/.test(value)) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        if (!/^([^a-zA-Z]+)$/.test(value) && /^([^0-9]+)$/.test(value)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
   },
 };

@@ -22,8 +22,6 @@ const gronsfeld = {
       strKey = strKey.substring(0, key.length - (key.length - text.length));
     }
 
-    console.log("strKey:", strKey);
-
     for (let i = 0; i < text.length; i++) {
       if (text[i] === " ") {
         strEncoded += " ";
@@ -93,8 +91,6 @@ const gronsfeld = {
         }
       }
     }
-
-    console.log("strEncoded:", strEncoded);
 
     return strEncoded;
   },

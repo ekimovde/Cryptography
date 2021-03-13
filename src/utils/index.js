@@ -4,3 +4,4 @@ export { default as scitula } from "./scitula";
 export { default as polybiusSquare } from "./polybiusSquare";
 export { default as caesar } from "./caesar";
 export { default as gronsfeld } from "./gronsfeld";
+export { default as vigener } from "./vigener";

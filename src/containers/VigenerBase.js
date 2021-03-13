@@ -2,29 +2,35 @@ import React, { useState, useEffect } from "react";
 
 import { Vigener } from "components";
 
-import { validate, atbash } from "utils";
+import { validate, vigener } from "utils";
 
 const VigenerBase = () => {
   const [text, setText] = useState("");
+  const [keyValue, setKeyValue] = useState("");
   const [lang, setLang] = useState("Русский");
   const [type, setType] = useState("Зашифровать");
 
   const [textDirty, setTextDirty] = useState(false);
+  const [keyDirty, setKeyDirty] = useState(false);
   const [textError, setTextError] = useState("Текст не может быть пустым!");
+  const [keyError, setKeyError] = useState("Ключ не может быть пустым!");
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if (textError) {
+    if (textError || keyError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [textError]);
+  }, [textError, keyError]);
 
   const blurHandler = (event) => {
     switch (event.target.name) {
       case "text":
         setTextDirty(true);
+        break;
+      case "key":
+        setKeyDirty(true);
         break;
       default:
         return null;
@@ -35,11 +41,11 @@ const VigenerBase = () => {
     event.preventDefault();
 
     if (type === "Зашифровать") {
-      atbash(lang, text, setText);
+      setText(vigener.encoding(text, keyValue, type));
 
       setType("Расшифровать");
     } else {
-      atbash(lang, text, setText);
+      setText(vigener.encoding(text, keyValue, type));
 
       setType("Зашифровать");
     }
@@ -48,14 +54,24 @@ const VigenerBase = () => {
   const onChangeText = (event) => {
     setText(event.target.value);
 
-    if (!validate.validatePolybiusSquare(event.target.value, lang)) {
-      setTextError("Некорректный текст!");
+    if (!event.target.value) {
+      setTextError("Текст не может быть пустым!");
     } else {
       setTextError("");
     }
+  };
+
+  const onChangeKey = (event) => {
+    setKeyValue(event.target.value);
+
+    if (validate.validateVigener(event.target.value)) {
+      setKeyError("Некорректный ключ!");
+    } else {
+      setKeyError("");
+    }
 
     if (!event.target.value) {
-      setTextError("Текст не может быть пустым!");
+      setKeyError("Ключ не может быть пустым!");
     }
   };
 
@@ -68,10 +84,18 @@ const VigenerBase = () => {
 
     if (text === "") {
       setTextError("Текст не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(text, lang)) {
+    } else if (validate.validateVigener(text, lang, "text")) {
       setTextError("Некорректный текст!");
     } else {
       setTextError("");
+    }
+
+    if (keyValue === "") {
+      setKeyError("Ключ не может быть пустым!");
+    } else if (validate.validateVigener(keyValue, lang, "key")) {
+      setKeyError("Некорректный ключ!");
+    } else {
+      setKeyError("");
     }
   };
 
@@ -84,10 +108,18 @@ const VigenerBase = () => {
 
     if (text === "") {
       setTextError("Текст не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(text, lang)) {
+    } else if (validate.validateVigener(text, lang, "text")) {
       setTextError("Некорректный текст!");
     } else {
       setTextError("");
+    }
+
+    if (keyValue === "") {
+      setKeyError("Ключ не может быть пустым!");
+    } else if (validate.validateVigener(keyValue, lang, "key")) {
+      setKeyError("Некорректный ключ!");
+    } else {
+      setKeyError("");
     }
   };
 
@@ -110,13 +142,17 @@ const VigenerBase = () => {
   return (
     <Vigener
       text={text}
-      formValid={formValid}
       lang={lang}
+      keyValue={keyValue}
+      formValid={formValid}
       type={type}
       textDirty={textDirty}
+      keyDirty={keyDirty}
       textError={textError}
+      keyError={keyError}
       onSubmit={onSubmit}
       blurHandler={blurHandler}
+      onChangeKey={onChangeKey}
       onChangeText={onChangeText}
       onClickLangAdd={onClickLangAdd}
       onClickLangSub={onClickLangSub}

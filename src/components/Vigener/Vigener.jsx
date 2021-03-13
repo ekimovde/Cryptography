@@ -7,13 +7,17 @@ import "./Vigener.scss";
 const Vigener = ({
   text,
   lang,
+  keyValue,
   formValid,
   textDirty,
+  keyDirty,
   textError,
+  keyError,
   type,
   onSubmit,
   blurHandler,
   onChangeText,
+  onChangeKey,
   onClickLangAdd,
   onClickLangSub,
   onClickTypeAdd,
@@ -34,6 +38,20 @@ const Vigener = ({
             />
             {textDirty && textError && (
               <div className="form__error">{textError}</div>
+            )}
+          </div>
+
+          <div className="form__block">
+            <label htmlFor="key">Ключ</label>
+            <TextArea
+              name={"key"}
+              type="text"
+              value={keyValue}
+              onChange={onChangeKey}
+              onBlur={blurHandler}
+            />
+            {keyDirty && keyError && (
+              <div className="form__error">{keyError}</div>
             )}
           </div>
 
