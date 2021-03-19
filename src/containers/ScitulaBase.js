@@ -6,7 +6,7 @@ import { scitula, validate } from "utils";
 
 const ScitulaBase = () => {
   const [text, setText] = useState("");
-  const [rows, setRows] = useState(1); // количество строк
+  const [rows, setRows] = useState(1);
   const [type, setType] = useState("Зашифровать");
 
   const [textDirty, setTextDirty] = useState(false);
@@ -35,7 +35,7 @@ const ScitulaBase = () => {
     event.preventDefault();
 
     const len = text.length;
-    const columns = Math.floor((len - 1) / rows + 1); // количество столбцов
+    const columns = Math.floor((len - 1) / rows + 1);
 
     let array = text.split("");
     let myMatrix = null;

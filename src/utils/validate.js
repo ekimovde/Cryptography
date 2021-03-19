@@ -95,6 +95,9 @@ const validate = {
       }
     }
   },
+  validateDisk: () => {
+    //
+  },
 };
 
 export default validate;

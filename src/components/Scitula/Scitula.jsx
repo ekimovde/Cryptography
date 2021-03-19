@@ -7,7 +7,6 @@ import "./Scitula.scss";
 const Scitula = ({
   text,
   rows,
-  valid,
   type,
   textDirty,
   textError,

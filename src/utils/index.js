@@ -5,3 +5,5 @@ export { default as polybiusSquare } from "./polybiusSquare";
 export { default as caesar } from "./caesar";
 export { default as gronsfeld } from "./gronsfeld";
 export { default as vigener } from "./vigener";
+export { default as disk } from "./disk";
+export { default as cardano } from "./cardano";

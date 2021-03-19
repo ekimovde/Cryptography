@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import { Cardano } from "components";
 
-import { validate, atbash } from "utils";
+import { cardano } from "utils";
 
 const CardanoBase = () => {
   const [text, setText] = useState("");
-  const [lang, setLang] = useState("Русский");
+  const [rows, setRows] = useState(1);
   const [type, setType] = useState("Зашифровать");
 
   const [textDirty, setTextDirty] = useState(false);
@@ -35,11 +35,11 @@ const CardanoBase = () => {
     event.preventDefault();
 
     if (type === "Зашифровать") {
-      atbash(lang, text, setText);
+      cardano.encode(text.trim(), rows);
 
       setType("Расшифровать");
     } else {
-      atbash(lang, text, setText);
+      cardano.decode(text, rows);
 
       setType("Зашифровать");
     }
@@ -48,46 +48,20 @@ const CardanoBase = () => {
   const onChangeText = (event) => {
     setText(event.target.value);
 
-    if (!validate.validatePolybiusSquare(event.target.value, lang)) {
-      setTextError("Некорректный текст!");
-    } else {
-      setTextError("");
-    }
-
     if (!event.target.value) {
       setTextError("Текст не может быть пустым!");
-    }
-  };
-
-  const onClickLangAdd = () => {
-    if (lang !== "Русский") {
-      return;
-    } else {
-      setLang("Английский");
-    }
-
-    if (text === "") {
-      setTextError("Текст не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(text, lang)) {
-      setTextError("Некорректный текст!");
     } else {
       setTextError("");
     }
   };
 
-  const onClickLangSub = () => {
-    if (lang !== "Английский") {
-      return;
-    } else {
-      setLang("Русский");
-    }
+  const onClickRowAdd = () => {
+    setRows(rows + 1);
+  };
 
-    if (text === "") {
-      setTextError("Текст не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(text, lang)) {
-      setTextError("Некорректный текст!");
-    } else {
-      setTextError("");
+  const onClickRowSub = () => {
+    if (rows !== 1) {
+      setRows(rows - 1);
     }
   };
 
@@ -111,15 +85,15 @@ const CardanoBase = () => {
     <Cardano
       text={text}
       formValid={formValid}
-      lang={lang}
+      rows={rows}
       type={type}
       textDirty={textDirty}
       textError={textError}
       onSubmit={onSubmit}
       blurHandler={blurHandler}
       onChangeText={onChangeText}
-      onClickLangAdd={onClickLangAdd}
-      onClickLangSub={onClickLangSub}
+      onClickRowAdd={onClickRowAdd}
+      onClickRowSub={onClickRowSub}
       onClickTypeAdd={onClickTypeAdd}
       onClickTypeSub={onClickTypeSub}
     />

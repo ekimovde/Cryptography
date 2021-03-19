@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import { Disk } from "components";
 
-import { validate, atbash } from "utils";
+import { validate, disk } from "utils";
 
 const DiskBase = () => {
   const [text, setText] = useState("");
-  const [lang, setLang] = useState("Русский");
   const [type, setType] = useState("Зашифровать");
 
   const [textDirty, setTextDirty] = useState(false);
@@ -35,11 +34,11 @@ const DiskBase = () => {
     event.preventDefault();
 
     if (type === "Зашифровать") {
-      atbash(lang, text, setText);
+      disk.encoding(text);
 
       setType("Расшифровать");
     } else {
-      atbash(lang, text, setText);
+      disk.decoding(text);
 
       setType("Зашифровать");
     }
@@ -48,46 +47,8 @@ const DiskBase = () => {
   const onChangeText = (event) => {
     setText(event.target.value);
 
-    if (!validate.validatePolybiusSquare(event.target.value, lang)) {
-      setTextError("Некорректный текст!");
-    } else {
-      setTextError("");
-    }
-
     if (!event.target.value) {
       setTextError("Текст не может быть пустым!");
-    }
-  };
-
-  const onClickLangAdd = () => {
-    if (lang !== "Русский") {
-      return;
-    } else {
-      setLang("Английский");
-    }
-
-    if (text === "") {
-      setTextError("Текст не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(text, lang)) {
-      setTextError("Некорректный текст!");
-    } else {
-      setTextError("");
-    }
-  };
-
-  const onClickLangSub = () => {
-    if (lang !== "Английский") {
-      return;
-    } else {
-      setLang("Русский");
-    }
-
-    if (text === "") {
-      setTextError("Текст не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(text, lang)) {
-      setTextError("Некорректный текст!");
-    } else {
-      setTextError("");
     }
   };
 
@@ -111,15 +72,12 @@ const DiskBase = () => {
     <Disk
       text={text}
       formValid={formValid}
-      lang={lang}
       type={type}
       textDirty={textDirty}
       textError={textError}
       onSubmit={onSubmit}
       blurHandler={blurHandler}
       onChangeText={onChangeText}
-      onClickLangAdd={onClickLangAdd}
-      onClickLangSub={onClickLangSub}
       onClickTypeAdd={onClickTypeAdd}
       onClickTypeSub={onClickTypeSub}
     />

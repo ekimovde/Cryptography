@@ -6,7 +6,7 @@ import "./Cardano.scss";
 
 const Cardano = ({
   text,
-  lang,
+  rows,
   formValid,
   textDirty,
   textError,
@@ -14,8 +14,8 @@ const Cardano = ({
   onSubmit,
   blurHandler,
   onChangeText,
-  onClickLangAdd,
-  onClickLangSub,
+  onClickRowAdd,
+  onClickRowSub,
   onClickTypeAdd,
   onClickTypeSub,
 }) => {
@@ -38,11 +38,11 @@ const Cardano = ({
           </div>
 
           <Switch
-            label={"Выберите язык"}
-            name={"lang"}
-            value={lang}
-            onClickAdd={onClickLangAdd}
-            onClickSub={onClickLangSub}
+            label={"Выберите размер решётки"}
+            name={"rows"}
+            value={rows}
+            onClickAdd={onClickRowAdd}
+            onClickSub={onClickRowSub}
           />
 
           <Switch
