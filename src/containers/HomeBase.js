@@ -55,7 +55,7 @@ const HomeBase = () => {
       id: 7,
       title: "Шифр Диск Альберти",
       text: "Шифр многоалфавитной замены.",
-      status: "active",
+      status: "complete",
       url: "/disk",
     },
     {

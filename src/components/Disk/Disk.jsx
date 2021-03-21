@@ -6,13 +6,21 @@ import "./Disk.scss";
 
 const Disk = ({
   text,
+  keyValueAlph,
+  keyValueText,
   formValid,
   textDirty,
+  keyAlphDirty,
+  keyTextDirty,
   textError,
+  keyAlphError,
+  keyTextError,
   type,
   onSubmit,
   blurHandler,
   onChangeText,
+  onChangeKeyAplh,
+  onChangeKeyText,
   onClickTypeAdd,
   onClickTypeSub,
 }) => {
@@ -31,6 +39,34 @@ const Disk = ({
             />
             {textDirty && textError && (
               <div className="form__error">{textError}</div>
+            )}
+          </div>
+
+          <div className="form__block">
+            <label htmlFor="keyAlph">Ключ для алфавита</label>
+            <TextArea
+              name={"keyAlph"}
+              type="text"
+              value={keyValueAlph}
+              onChange={onChangeKeyAplh}
+              onBlur={blurHandler}
+            />
+            {keyAlphDirty && keyAlphError && (
+              <div className="form__error">{keyAlphError}</div>
+            )}
+          </div>
+
+          <div className="form__block">
+            <label htmlFor="keyText">Ключ для текста</label>
+            <TextArea
+              name={"keyText"}
+              type="text"
+              value={keyValueText}
+              onChange={onChangeKeyText}
+              onBlur={blurHandler}
+            />
+            {keyTextDirty && keyTextError && (
+              <div className="form__error">{keyTextError}</div>
             )}
           </div>
 
