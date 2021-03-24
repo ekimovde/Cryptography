@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import { Disk } from "components";
 
-import { disk } from "utils";
+import { validate, disk } from "utils";
 
 const DiskBase = () => {
   const [text, setText] = useState("");
+  const [lang, setLang] = useState("Русский");
   const [keyValueAlph, setKeyValueAlph] = useState("");
   const [keyValueText, setKeyValueText] = useState("");
   const [type, setType] = useState("Зашифровать");
@@ -54,7 +55,8 @@ const DiskBase = () => {
         disk.encoding(
           text.toLowerCase(),
           keyValueAlph.toLowerCase(),
-          keyValueText.toLowerCase()
+          keyValueText.toLowerCase(),
+          lang
         )
       );
 
@@ -64,7 +66,8 @@ const DiskBase = () => {
         disk.decoding(
           text.toLowerCase(),
           keyValueAlph.toLowerCase(),
-          keyValueText.toLowerCase()
+          keyValueText.toLowerCase(),
+          lang
         )
       );
 
@@ -79,6 +82,70 @@ const DiskBase = () => {
       setTextError("Текст не может быть пустым!");
     } else {
       setTextError("");
+    }
+  };
+
+  const onClickLangAdd = () => {
+    if (lang !== "Русский") {
+      return;
+    } else {
+      setLang("Английский");
+    }
+
+    if (text === "") {
+      setTextError("Текст не может быть пустым!");
+    } else if (validate.validateDisk(text, lang)) {
+      setTextError("Некорректный текст!");
+    } else {
+      setTextError("");
+    }
+
+    if (keyValueAlph === "") {
+      setKeyAlphError("Ключ не может быть пустым!");
+    } else if (validate.validateDisk(keyValueAlph, lang)) {
+      setKeyAlphError("Некорректный ключ!");
+    } else {
+      setKeyAlphError("");
+    }
+
+    if (keyValueText === "") {
+      setKeyTextError("Ключ не может быть пустым!");
+    } else if (validate.validateDisk(keyValueText, lang)) {
+      setKeyTextError("Некорректный ключ!");
+    } else {
+      setKeyTextError("");
+    }
+  };
+
+  const onClickLangSub = () => {
+    if (lang !== "Английский") {
+      return;
+    } else {
+      setLang("Русский");
+    }
+
+    if (text === "") {
+      setTextError("Текст не может быть пустым!");
+    } else if (validate.validateDisk(text, lang)) {
+      setTextError("Некорректный текст!");
+    } else {
+      setTextError("");
+    }
+
+    if (keyValueAlph === "") {
+      setKeyAlphError("Ключ не может быть пустым!");
+    } else if (validate.validateDisk(keyValueAlph, lang)) {
+      setKeyAlphError("Некорректный ключ!");
+    } else {
+      setKeyAlphError("");
+    }
+
+    if (keyValueText === "") {
+      setKeyTextError("Ключ не может быть пустым!");
+    } else if (validate.validateDisk(keyValueText, lang)) {
+      setKeyTextError("Некорректный ключ!");
+    } else {
+      setKeyTextError("");
     }
   };
 
@@ -121,6 +188,7 @@ const DiskBase = () => {
   return (
     <Disk
       text={text}
+      lang={lang}
       keyValueAlph={keyValueAlph}
       keyValueText={keyValueText}
       formValid={formValid}
@@ -134,6 +202,8 @@ const DiskBase = () => {
       onSubmit={onSubmit}
       blurHandler={blurHandler}
       onChangeText={onChangeText}
+      onClickLangAdd={onClickLangAdd}
+      onClickLangSub={onClickLangSub}
       onChangeKeyAplh={onChangeKeyAplh}
       onChangeKeyText={onChangeKeyText}
       onClickTypeAdd={onClickTypeAdd}

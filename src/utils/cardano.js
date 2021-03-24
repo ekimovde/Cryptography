@@ -1,119 +1,151 @@
-import { Cell } from "./Cell";
-
-let matrix = [];
+let matrix = [[]];
+let k;
+class Cell {
+  static num;
+  static hole = false;
+}
 
 const cardano = {
-  rotateRight90: (matrix) => {
-    let result = [];
-    for (let i = matrix.length - 1; i >= 0; i--) {
-      for (let j = 0; j < matrix[i].length; j++) {
-        if (!result[j]) {
-          result[j] = [];
-        }
-        result[j].push(matrix[i][j]);
-      }
+  generate: (l) => {
+    let m = new Array(l * 2);
+    for (let i = 0; i < m.length; i++) {
+      m[i] = new Array(l * 2);
     }
-    return result;
-  },
-  shiftGrid: (grid) => {
-    let k = 1;
+    matrix = m;
 
-    return grid.map((el, index, arr) => {
-      return index < k ? arr[arr.length + index - k] : arr[index - k];
-    });
-  },
-  splitTextToBlocks: (txt, len) => {
-    const pattern = new RegExp(".{1," + len + "}", "g");
-    return txt.match(pattern);
-  },
-  generate: (len) => {
-    let key = len;
-
-    for (let i = 0; i < len * 2; i++) {
-      matrix[i] = [];
-      for (let j = 0; j < len * 2; j++) {
-        matrix[i][j] = new Cell();
+    for (let y = 0; y < l * 2; y++)
+      for (let x = 0; x < l * 2; x++) {
+        matrix[x][y] = new Cell();
       }
+    let id = 1;
+
+    let tmp = new Array(l);
+    for (let i = 0; i < l; i++) {
+      tmp[i] = new Array(l);
     }
-
-    let i = 1;
-    let tmp = [];
-
-    for (let y = 0; y < len; y++) {
-      tmp[y] = [];
-      for (let x = 0; x < len; x++) {
-        tmp[y][x] = new Cell(i, false);
-        i++;
+    for (let y = 0; y < l; y++)
+      for (let x = 0; x < l; x++) {
+        tmp[x][y] = new Cell();
+        tmp[x][y].num = id;
+        tmp[x][y].hole = false;
+        id++;
       }
-    }
-
-    cardano.addMatr(tmp, key, 0, 0);
-
-    tmp = cardano.rotate(tmp);
-
-    cardano.addMatr(tmp, key, len, 0);
-
-    tmp = cardano.rotate(tmp);
-
-    cardano.addMatr(tmp, key, len, len);
-
-    tmp = cardano.rotate(tmp);
-
-    cardano.addMatr(tmp, key, 0, len);
+    cardano.addMatrix(tmp, 0, 0);
+    tmp = cardano.rotateMatrix(tmp);
+    cardano.addMatrix(tmp, l, 0);
+    tmp = cardano.rotateMatrix(tmp);
+    cardano.addMatrix(tmp, l, l);
+    tmp = cardano.rotateMatrix(tmp);
+    cardano.addMatrix(tmp, 0, l);
   },
-  addMatr: (tmp, key, offsetX, offsetY) => {
-    let len = key;
 
-    for (let y = 0; y < len; y++) {
-      for (let x = 0; x < len; x++) {
+  addMatrix: (tmp, offsetX, offsetY) => {
+    for (let y = 0; y < k; y++)
+      for (let x = 0; x < k; x++) {
         matrix[x + offsetX][y + offsetY].num = tmp[x][y].num;
       }
-    }
-  },
-  rotate: (arrs) => {
-    let len = Math.sqrt(arrs.Length);
-
-    let arrCopy = [...arrs];
-
-    for (let y = 0; y < len; y++)
-      for (let x = 0; x < len; x++) {
-        arrCopy[x][y] = new Cell();
-        arrCopy[x][y].num = matrix[x][y].num;
-        arrCopy[x][y].hole = matrix[x][y].hole;
-      }
-
-    let tmp = [];
-
-    for (let y = 0; y < len; y++) {
-      tmp[y] = [];
-      for (let x = 0; x < len; x++) {
-        tmp[y][x] = new Cell();
-        tmp[y][x].num = arrCopy[x][y].num;
-        tmp[y][x].hole = arrCopy[x][y].hole;
-      }
-    }
-
-    for (let y = 0; y < len; y++) {
-      for (let x = 0; x < len; x++) {
-        arrCopy[x][y].num = tmp[x][y].num;
-        arrCopy[x][y].hole = tmp[x][y].hole;
-      }
-    }
-
-    for (let y = 0; y < len; y++) {
-      for (let x = 0; x < len; x++) {
-        tmp[x][y].num = arrCopy[len - 1 - x][y].num;
-        tmp[x][y].hole = arrCopy[len - 1 - x][y].hole;
-      }
-    }
-
-    return tmp;
   },
 
+  rotateMatrix: (tmp) => {
+    let l = tmp.length;
+    let tmpCopy = new Array(l);
+    for (let i = 0; i < l; i++) {
+      tmpCopy[i] = new Array(l);
+    }
+
+    for (let y = 0; y < l; y++)
+      for (let x = 0; x < l; x++) {
+        tmpCopy[x][y] = new Cell();
+        tmpCopy[x][y].num = tmp[x][y].num;
+        tmpCopy[x][y].hole = tmp[x][y].hole;
+      }
+    //copied
+    let t = new Array(l);
+    for (let i = 0; i < l; i++) {
+      t[i] = new Array(l);
+    }
+    for (let y = 0; y < l; y++)
+      for (let x = 0; x < l; x++) {
+        t[y][x] = new Cell();
+        t[y][x].num = tmpCopy[x][y].num;
+        t[y][x].hole = tmpCopy[x][y].hole;
+      }
+
+    for (let y = 0; y < l; y++)
+      for (let x = 0; x < l; x++) {
+        tmpCopy[x][y].num = t[x][y].num;
+        tmpCopy[x][y].hole = t[x][y].hole;
+      }
+
+    for (let y = 0; y < l; y++)
+      for (let x = 0; x < l; x++) {
+        t[x][y].num = tmpCopy[l - 1 - x][y].num;
+        t[(x, y)].hole = tmpCopy[l - 1 - x][y].hole;
+      }
+
+    return t;
+  },
+  toConsole: (tmp) => {
+    let s = "";
+    for (let y = 0; y < k * 2; y++) {
+      for (let x = 0; x < k * 2; x++) {
+        if (tmp[x][y].hole === false) s += tmp[x][y].num + " ";
+        else s += tmp[x][y].num + "* ";
+      }
+      s += "\n";
+    }
+    console.log(s);
+  },
   encode: (text, key) => {
-    cardano.generate(key);
+    k = key;
+    cardano.generate(k);
 
-    console.log(matrix);
+    let encodedMatrix = new Array(k * 2);
+    for (let i = 0; i < k * 2; i++) {
+      encodedMatrix[i] = new Array(k * 2);
+    }
+
+    let id = 0;
+    let elements = [];
+    for (let i = 0; i < key * key; i++) {
+      elements.push(Math.floor(Math.random() * key));
+    }
+
+    for (let y = 0; y < k * 2; y++) {
+      for (let x = 0; x < k * 2; x++) {
+        if (elements[matrix[x][y].num - 1] > 0) {
+          elements[matrix[x][y].num - 1]--;
+        } else if (elements[matrix[x][y].num - 1] !== -1) {
+          matrix[x][y].hole = true;
+          elements[matrix[x][y].num - 1] = -1;
+        }
+      }
+    }
+
+    for (let j = 0; j < 4; j++) {
+      //strt
+      for (let y = 0; y < k * 2; y++) {
+        for (let x = 0; x < k * 2; x++) {
+          if (matrix[x][y].hole) {
+            if (id < text.length) encodedMatrix[x][y] = text[id];
+            else encodedMatrix[x][y] = "*";
+            id++;
+          }
+        }
+      }
+      matrix = cardano.rotateMatrix(matrix);
+
+      //end
+    }
+
+    let s = "";
+    for (let y = 0; y < k * 2; y++) {
+      for (let x = 0; x < k * 2; x++) {
+        s += encodedMatrix[x][y] + " ";
+      }
+      s += "\n";
+    }
+    console.log(s);
   },
   decode: (text, key) => {},
 };

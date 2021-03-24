@@ -6,6 +6,7 @@ import "./Disk.scss";
 
 const Disk = ({
   text,
+  lang,
   keyValueAlph,
   keyValueText,
   formValid,
@@ -21,6 +22,8 @@ const Disk = ({
   onChangeText,
   onChangeKeyAplh,
   onChangeKeyText,
+  onClickLangAdd,
+  onClickLangSub,
   onClickTypeAdd,
   onClickTypeSub,
 }) => {
@@ -69,6 +72,14 @@ const Disk = ({
               <div className="form__error">{keyTextError}</div>
             )}
           </div>
+
+          <Switch
+            label={"Выберите язык"}
+            name={"lang"}
+            value={lang}
+            onClickAdd={onClickLangAdd}
+            onClickSub={onClickLangSub}
+          />
 
           <Switch
             label={"Выберите метод"}

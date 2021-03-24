@@ -1,11 +1,15 @@
-const alphStr = "abcdefghijklmnopqrstuvwxyz";
+let alphStr = "abcdefghijklmnopqrstuvwxyz";
 
 const disk = {
-  encoding: (text, keyValueAlph, keyValueText) => {
+  encoding: (text, keyValueAlph, keyValueText, lang) => {
     let newAlph = "";
     let str = "";
     let array = [];
     text = text.replace(/\s/g, "");
+
+    if (lang === "Русский") {
+      alphStr = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    }
 
     for (let i = 0; i < keyValueAlph.length; i++) {
       if (!newAlph.includes(keyValueAlph[i])) {
@@ -37,11 +41,15 @@ const disk = {
 
     return str;
   },
-  decoding: (text, keyValueAlph, keyValueText) => {
+  decoding: (text, keyValueAlph, keyValueText, lang) => {
     let newAlph = "";
     let str = "";
     let array = [];
     text = text.replace(/\s/g, "");
+
+    if (lang === "Русский") {
+      alphStr = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    }
 
     for (let i = 0; i < keyValueAlph.length; i++) {
       if (!newAlph.includes(keyValueAlph[i])) {

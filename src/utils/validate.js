@@ -95,8 +95,20 @@ const validate = {
       }
     }
   },
-  validateDisk: () => {
-    //
+  validateDisk: (value, lang) => {
+    if (lang === "Русский") {
+      if (!/^([^a-zA-Z]+)$/.test(value)) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if (!/^([^а-яА-Я]+)$/.test(value)) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   },
 };
 
