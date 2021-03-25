@@ -35,11 +35,11 @@ const CardanoBase = () => {
     event.preventDefault();
 
     if (type === "Зашифровать") {
-      cardano.encode(text.trim(), rows);
+      setText(cardano.encode(text, rows));
 
       setType("Расшифровать");
     } else {
-      cardano.decode(text, rows);
+      setText(cardano.decode(text, rows));
 
       setType("Зашифровать");
     }
