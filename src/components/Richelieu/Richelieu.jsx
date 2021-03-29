@@ -6,16 +6,17 @@ import "./Richelieu.scss";
 
 const Richelieu = ({
   text,
-  lang,
+  keyValue,
   formValid,
   textDirty,
+  keyDirty,
   textError,
+  keyError,
   type,
   onSubmit,
   blurHandler,
   onChangeText,
-  onClickLangAdd,
-  onClickLangSub,
+  onChangeKey,
   onClickTypeAdd,
   onClickTypeSub,
 }) => {
@@ -37,13 +38,19 @@ const Richelieu = ({
             )}
           </div>
 
-          <Switch
-            label={"Выберите язык"}
-            name={"lang"}
-            value={lang}
-            onClickAdd={onClickLangAdd}
-            onClickSub={onClickLangSub}
-          />
+          <div className="form__block">
+            <label htmlFor="key">Ключ</label>
+            <TextArea
+              name={"key"}
+              type="text"
+              value={keyValue}
+              onChange={onChangeKey}
+              onBlur={blurHandler}
+            />
+            {keyDirty && keyError && (
+              <div className="form__error">{keyError}</div>
+            )}
+          </div>
 
           <Switch
             label={"Выберите метод"}

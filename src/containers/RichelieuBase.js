@@ -2,29 +2,34 @@ import React, { useState, useEffect } from "react";
 
 import { Richelieu } from "components";
 
-import { validate, atbash } from "utils";
+import { richelieu } from "utils";
 
 const RichelieuBase = () => {
   const [text, setText] = useState("");
-  const [lang, setLang] = useState("Русский");
   const [type, setType] = useState("Зашифровать");
+  const [keyValue, setKeyValue] = useState("");
 
   const [textDirty, setTextDirty] = useState(false);
+  const [keyDirty, setKeyDirty] = useState(false);
   const [textError, setTextError] = useState("Текст не может быть пустым!");
+  const [keyError, setKeyError] = useState("Ключ не может быть пустым!");
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if (textError) {
+    if (textError || keyError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [textError]);
+  }, [textError, keyError]);
 
   const blurHandler = (event) => {
     switch (event.target.name) {
       case "text":
         setTextDirty(true);
+        break;
+      case "key":
+        setKeyDirty(true);
         break;
       default:
         return null;
@@ -35,11 +40,11 @@ const RichelieuBase = () => {
     event.preventDefault();
 
     if (type === "Зашифровать") {
-      atbash(lang, text, setText);
+      setText(richelieu.encoded(text, keyValue));
 
       setType("Расшифровать");
     } else {
-      atbash(lang, text, setText);
+      setText(richelieu.decoded(text, keyValue));
 
       setType("Зашифровать");
     }
@@ -48,46 +53,20 @@ const RichelieuBase = () => {
   const onChangeText = (event) => {
     setText(event.target.value);
 
-    if (!validate.validatePolybiusSquare(event.target.value, lang)) {
-      setTextError("Некорректный текст!");
-    } else {
-      setTextError("");
-    }
-
     if (!event.target.value) {
       setTextError("Текст не может быть пустым!");
-    }
-  };
-
-  const onClickLangAdd = () => {
-    if (lang !== "Русский") {
-      return;
-    } else {
-      setLang("Английский");
-    }
-
-    if (text === "") {
-      setTextError("Текст не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(text, lang)) {
-      setTextError("Некорректный текст!");
     } else {
       setTextError("");
     }
   };
 
-  const onClickLangSub = () => {
-    if (lang !== "Английский") {
-      return;
-    } else {
-      setLang("Русский");
-    }
+  const onChangeKey = (event) => {
+    setKeyValue(event.target.value);
 
-    if (text === "") {
-      setTextError("Текст не может быть пустым!");
-    } else if (validate.validatePolybiusSquare(text, lang)) {
-      setTextError("Некорректный текст!");
+    if (!event.target.value) {
+      setKeyError("Ключ не может быть пустым!");
     } else {
-      setTextError("");
+      setKeyError("");
     }
   };
 
@@ -110,16 +89,17 @@ const RichelieuBase = () => {
   return (
     <Richelieu
       text={text}
+      keyValue={keyValue}
       formValid={formValid}
-      lang={lang}
       type={type}
       textDirty={textDirty}
+      keyDirty={keyDirty}
       textError={textError}
+      keyError={keyError}
       onSubmit={onSubmit}
       blurHandler={blurHandler}
+      onChangeKey={onChangeKey}
       onChangeText={onChangeText}
-      onClickLangAdd={onClickLangAdd}
-      onClickLangSub={onClickLangSub}
       onClickTypeAdd={onClickTypeAdd}
       onClickTypeSub={onClickTypeSub}
     />
