@@ -48,15 +48,18 @@ const richelieu = {
 
     console.log("blockStr:", arrayText);
 
+    // eslint-disable-next-line
     blockKey.map((item, index) => {
       let tmp = item.split("");
+      let copyArr = [...arrayText[index]];
 
-      return tmp.map((element) => {
-        let symbol = arrayText[index].split("").splice(element - 1, 1);
-        strEncoded += symbol;
-
-        return element;
+      // eslint-disable-next-line
+      tmp.map((element, id) => {
+        let tmp = arrayText[index].split("");
+        copyArr[element - 1] = tmp[id];
       });
+
+      strEncoded += copyArr.join("");
     });
 
     if (strEncoded.length < text.length) {
@@ -115,14 +118,14 @@ const richelieu = {
 
     console.log("blockStr:", arrayText);
 
+    // eslint-disable-next-line
     blockKey.map((item, index) => {
       let tmp = item.split("");
 
-      return tmp.map((element) => {
+      // eslint-disable-next-line
+      tmp.map((element) => {
         let symbol = arrayText[index].split("").splice(element - 1, 1);
         strDecoded += symbol;
-
-        return element;
       });
     });
 
