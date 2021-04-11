@@ -40,11 +40,11 @@ const GronsfeldBase = () => {
     event.preventDefault();
 
     if (type === "Зашифровать") {
-      setText(gronsfeld.encoding(text, keyValue, type));
+      setText(gronsfeld.encoding(text, keyValue));
 
       setType("Расшифровать");
     } else {
-      setText(gronsfeld.encoding(text, keyValue, type));
+      setText(gronsfeld.decoding(text, keyValue));
 
       setType("Зашифровать");
     }
@@ -63,7 +63,7 @@ const GronsfeldBase = () => {
   const onChangeKey = (event) => {
     setKeyValue(event.target.value);
 
-    if (validate.validateGronsfeld(event.target.value)) {
+    if (!validate.validateGronsfeld(event.target.value)) {
       setKeyError("Некорректный ключ!");
     } else {
       setKeyError("");
