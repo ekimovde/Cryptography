@@ -1,41 +1,27 @@
 const richelieu = {
   encoded: (text, key) => {
     let blockKey = key.split(" ");
+    let strEncoded = "";
     let blockStr = "";
     let arrayText = [];
-    let strEncoded = "";
+    let start = 0;
 
-    if (key.replace(/\s/g, "").length > text.length) {
-      return "Длина ключа не может быть больше текста!";
-    }
-
-    console.log("blockKey:", blockKey);
+    console.log(blockKey);
 
     for (let i = 0; i < blockKey.length; i++) {
-      let len = blockKey[i].length;
-
-      for (let j = 0; j < len; j++) {
+      for (let j = 0; j < blockKey[i].split(",").length; j++) {
         if (blockKey[i].indexOf(j + 1) === -1) {
           return "Некоректный ключ!";
         }
       }
-
-      for (let index in blockKey[i]) {
-        let text = blockKey[i][index].split("");
-
-        if (
-          text.some((v, i, a) => {
-            return a.lastIndexOf(v) !== i;
-          })
-        ) {
-          return "Некоректный ключ!";
-        }
-      }
     }
 
-    let start = 0;
+    if (key.replace(" ", ",").split(",").length > text.length) {
+      return "Длина ключа не может быть больше текста!";
+    }
 
     for (let i = 0; i < blockKey.length; i++) {
+      blockKey[i] = blockKey[i].split(",");
       blockStr = text.substr(start, blockKey[i].length);
       start += blockKey[i].length;
       arrayText.push(blockStr);
@@ -46,11 +32,11 @@ const richelieu = {
       arrayText.push(text.substr(text.length - index, text.length));
     }
 
-    console.log("blockStr:", arrayText);
+    console.log("arrayText:", arrayText);
 
     // eslint-disable-next-line
     blockKey.map((item, index) => {
-      let tmp = item.split("");
+      let tmp = item;
       let copyArr = [...arrayText[index]];
 
       // eslint-disable-next-line
@@ -71,41 +57,27 @@ const richelieu = {
   },
   decoded: (text, key) => {
     let blockKey = key.split(" ");
+    let strDecoded = "";
     let blockStr = "";
     let arrayText = [];
-    let strDecoded = "";
+    let start = 0;
 
-    if (key.replace(/\s/g, "").length > text.length) {
-      return "Длина ключа не может быть больше текста!";
-    }
-
-    console.log("blockKey:", blockKey);
+    console.log(blockKey);
 
     for (let i = 0; i < blockKey.length; i++) {
-      let len = blockKey[i].length;
-
-      for (let j = 0; j < len; j++) {
+      for (let j = 0; j < blockKey[i].split(",").length; j++) {
         if (blockKey[i].indexOf(j + 1) === -1) {
           return "Некоректный ключ!";
         }
       }
-
-      for (let index in blockKey[i]) {
-        let text = blockKey[i][index].split("");
-
-        if (
-          text.some((v, i, a) => {
-            return a.lastIndexOf(v) !== i;
-          })
-        ) {
-          return "Некоректный ключ!";
-        }
-      }
     }
 
-    let start = 0;
+    if (key.replace(" ", ",").split(",").length > text.length) {
+      return "Длина ключа не может быть больше текста!";
+    }
 
     for (let i = 0; i < blockKey.length; i++) {
+      blockKey[i] = blockKey[i].split(",");
       blockStr = text.substr(start, blockKey[i].length);
       start += blockKey[i].length;
       arrayText.push(blockStr);
@@ -116,17 +88,20 @@ const richelieu = {
       arrayText.push(text.substr(text.length - index, text.length));
     }
 
-    console.log("blockStr:", arrayText);
+    console.log("arrayText:", arrayText);
 
     // eslint-disable-next-line
     blockKey.map((item, index) => {
-      let tmp = item.split("");
+      let tmp = item;
+      let copyArr = [...arrayText[index]];
 
       // eslint-disable-next-line
-      tmp.map((element) => {
-        let symbol = arrayText[index].split("").splice(element - 1, 1);
-        strDecoded += symbol;
+      tmp.map((element, id) => {
+        let tmp = arrayText[index].split("");
+        copyArr[element - 1] = tmp[id];
       });
+
+      strDecoded += copyArr.join("");
     });
 
     if (strDecoded.length < text.length) {
