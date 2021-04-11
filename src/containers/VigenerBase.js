@@ -45,7 +45,7 @@ const VigenerBase = () => {
 
       setType("Расшифровать");
     } else {
-      setText(vigener.encoding(text, keyValue, type));
+      setText(vigener.decoding(text, keyValue, type));
 
       setType("Зашифровать");
     }
