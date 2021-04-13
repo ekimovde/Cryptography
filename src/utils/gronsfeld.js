@@ -96,7 +96,9 @@ const gronsfeld = {
 
           let index = (indexText - indexKey) % arr_ru.length;
 
-          if (index > 0) {
+          console.log(indexText, indexKey, index);
+
+          if (index >= 0) {
             strDecoded += arr_ru[index];
           } else {
             index = arr_ru.length - Math.abs(index);
@@ -108,7 +110,7 @@ const gronsfeld = {
 
           let index = (indexText - indexKey) % arr_en.length;
 
-          if (index > 0) {
+          if (index >= 0) {
             strDecoded += arr_en[index];
           } else {
             index = arr_en.length - Math.abs(index);
@@ -120,7 +122,7 @@ const gronsfeld = {
 
           let index = (indexText - indexKey) % arr_RU.length;
 
-          if (index > 0) {
+          if (index >= 0) {
             strDecoded += arr_RU[index];
           } else {
             index = arr_RU.length - Math.abs(index);
@@ -132,7 +134,7 @@ const gronsfeld = {
 
           let index = (indexText - indexKey) % arr_EN.length;
 
-          if (index > 0) {
+          if (index >= 0) {
             strDecoded += arr_EN[index];
           } else {
             index = arr_EN.length - Math.abs(index);
