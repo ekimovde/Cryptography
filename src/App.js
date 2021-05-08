@@ -13,6 +13,8 @@ import {
   DiskBase,
   GronsfeldBase,
   VigenerBase,
+  PlayfairBase,
+  VernamBase,
 } from "containers";
 
 import "styles/index.scss";
@@ -33,6 +35,8 @@ function App() {
         <Route path="/disk" component={DiskBase} />
         <Route path="/gronsfeld" component={GronsfeldBase} />
         <Route path="/vigener" component={VigenerBase} />
+        <Route path="/playfair" component={PlayfairBase} />
+        <Route path="/vernam" component={VernamBase} />
         <Redirect to="/" />
       </Switch>
     </div>

@@ -8,3 +8,5 @@ export { default as vigener } from "./vigener";
 export { default as disk } from "./disk";
 export { default as cardano } from "./cardano";
 export { default as richelieu } from "./richelieu";
+export { default as playfair } from "./playfair";
+export { default as vernam } from "./vernam";
