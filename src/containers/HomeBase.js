@@ -102,7 +102,7 @@ const HomeBase = () => {
       id: 13,
       title: "Шифр Вернама",
       text: "Cистема симметричного шифрования.",
-      status: "active",
+      status: "complete",
       url: "/vernam",
     },
   ];
