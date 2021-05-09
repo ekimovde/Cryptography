@@ -87,7 +87,7 @@ const HomeBase = () => {
       title: "Шифр Плейфера",
       text:
         "Ручная симметричная техника шифрования, в которой впервые использована замена биграмм.",
-      status: "active",
+      status: "complete",
       url: "/playfair",
     },
     {
