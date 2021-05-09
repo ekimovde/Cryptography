@@ -7,7 +7,6 @@ import { validate, vernam } from "utils";
 const VernamBase = () => {
   const [text, setText] = useState("");
   const [keyValue, setKeyValue] = useState("");
-  const [lang, setLang] = useState("Русский");
   const [type, setType] = useState("Зашифровать");
 
   const [textDirty, setTextDirty] = useState(false);
@@ -41,11 +40,11 @@ const VernamBase = () => {
     event.preventDefault();
 
     if (type === "Зашифровать") {
-      setText(vernam.encoding(text, keyValue));
+      setText(vernam.coding(text, keyValue));
 
       setType("Расшифровать");
     } else {
-      setText(vernam.decoding(text, keyValue));
+      setText(vernam.coding(text, keyValue));
 
       setType("Зашифровать");
     }
@@ -64,60 +63,8 @@ const VernamBase = () => {
   const onChangeKey = (event) => {
     setKeyValue(event.target.value);
 
-    if (validate.validateVigener(event.target.value)) {
-      setKeyError("Некорректный ключ!");
-    } else {
-      setKeyError("");
-    }
-
     if (!event.target.value) {
       setKeyError("Ключ не может быть пустым!");
-    }
-  };
-
-  const onClickLangAdd = () => {
-    if (lang !== "Русский") {
-      return;
-    } else {
-      setLang("Английский");
-    }
-
-    if (text === "") {
-      setTextError("Текст не может быть пустым!");
-    } else if (validate.validateVigener(text, lang, "text")) {
-      setTextError("Некорректный текст!");
-    } else {
-      setTextError("");
-    }
-
-    if (keyValue === "") {
-      setKeyError("Ключ не может быть пустым!");
-    } else if (validate.validateVigener(keyValue, lang, "key")) {
-      setKeyError("Некорректный ключ!");
-    } else {
-      setKeyError("");
-    }
-  };
-
-  const onClickLangSub = () => {
-    if (lang !== "Английский") {
-      return;
-    } else {
-      setLang("Русский");
-    }
-
-    if (text === "") {
-      setTextError("Текст не может быть пустым!");
-    } else if (validate.validateVigener(text, lang, "text")) {
-      setTextError("Некорректный текст!");
-    } else {
-      setTextError("");
-    }
-
-    if (keyValue === "") {
-      setKeyError("Ключ не может быть пустым!");
-    } else if (validate.validateVigener(keyValue, lang, "key")) {
-      setKeyError("Некорректный ключ!");
     } else {
       setKeyError("");
     }
@@ -142,7 +89,6 @@ const VernamBase = () => {
   return (
     <Vernam
       text={text}
-      lang={lang}
       keyValue={keyValue}
       formValid={formValid}
       type={type}
@@ -154,8 +100,6 @@ const VernamBase = () => {
       blurHandler={blurHandler}
       onChangeKey={onChangeKey}
       onChangeText={onChangeText}
-      onClickLangAdd={onClickLangAdd}
-      onClickLangSub={onClickLangSub}
       onClickTypeAdd={onClickTypeAdd}
       onClickTypeSub={onClickTypeSub}
     />

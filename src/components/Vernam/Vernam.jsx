@@ -7,7 +7,6 @@ import "./Vernam.scss";
 const Vernam = ({
   text,
   keyValue,
-  lang,
   type,
   textDirty,
   keyDirty,
@@ -18,8 +17,6 @@ const Vernam = ({
   onChangeText,
   blurHandler,
   onChangeKey,
-  onClickLangAdd,
-  onClickLangSub,
   onClickTypeAdd,
   onClickTypeSub,
 }) => {
@@ -54,14 +51,6 @@ const Vernam = ({
               <div className="form__error">{keyError}</div>
             )}
           </div>
-
-          <Switch
-            label={"Выберите язык"}
-            name={"lang"}
-            value={lang}
-            onClickAdd={onClickLangAdd}
-            onClickSub={onClickLangSub}
-          />
 
           <Switch
             label={"Выберите метод"}
