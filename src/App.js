@@ -14,6 +14,7 @@ import {
   GronsfeldBase,
   VigenerBase,
   PlayfairBase,
+  HillBase,
   VernamBase,
 } from "containers";
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/gronsfeld" component={GronsfeldBase} />
         <Route path="/vigener" component={VigenerBase} />
         <Route path="/playfair" component={PlayfairBase} />
+        <Route path="/hill" component={HillBase} />
         <Route path="/vernam" component={VernamBase} />
         <Redirect to="/" />
       </Switch>

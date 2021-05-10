@@ -15,4 +15,5 @@ export { default as Disk } from "./Disk/Disk.jsx";
 export { default as Gronsfeld } from "./Gronsfeld/Gronsfeld.jsx";
 export { default as Vigener } from "./Vigener/Vigener.jsx";
 export { default as Playfair } from "./Playfair/Playfair.jsx";
+export { default as Hill } from "./Hill/Hill.jsx";
 export { default as Vernam } from "./Vernam/Vernam.jsx";

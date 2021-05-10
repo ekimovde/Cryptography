@@ -10,4 +10,5 @@ export { default as DiskBase } from "./DiskBase";
 export { default as GronsfeldBase } from "./GronsfeldBase";
 export { default as VigenerBase } from "./VigenerBase";
 export { default as PlayfairBase } from "./PlayfairBase";
+export { default as HillBase } from "./HillBase";
 export { default as VernamBase } from "./VernamBase";
