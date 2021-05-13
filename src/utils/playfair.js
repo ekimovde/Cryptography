@@ -39,6 +39,8 @@ const playfair = {
 
     let matrix = [];
     let index = 0;
+    let symbols = ["*", ".", "?"];
+    let count = 0;
 
     for (let i = 0; i < size; i++) {
       let arr = [];
@@ -46,7 +48,8 @@ const playfair = {
         if (alphabet[index]) {
           arr.push(alphabet[index]);
         } else {
-          arr.push("*");
+          arr.push(symbols[count]);
+          count++;
         }
         index += 1;
       }
