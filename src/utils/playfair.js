@@ -1,7 +1,5 @@
 const arr_ru = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 const arr_en = "abcdefghijklmnopqrstuvwxyz";
-const arr_RU = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-const arr_EN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var alphabet = "";
 var specialSymbol = "";
 var size = null;

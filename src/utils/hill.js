@@ -1,9 +1,5 @@
-import { number } from "yup";
-
 const arr_ru = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 const arr_en = "abcdefghijklmnopqrstuvwxyz";
-const arr_RU = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-const arr_EN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var alphabet = [];
 var squares = [4, 9, 16, 25];
 var size = null;
@@ -216,7 +212,7 @@ const hill = {
         B[maxN] = temp;
         ++exchanges;
       } else {
-        if (maxValue == 0) return maxValue;
+        if (maxValue === 0) return maxValue;
       }
 
       let value1 = B[i][i];

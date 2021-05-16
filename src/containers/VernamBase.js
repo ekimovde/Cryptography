@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Vernam } from "components";
 
-import { validate, vernam } from "utils";
+import { vernam } from "utils";
 
 const VernamBase = () => {
   const [text, setText] = useState("");
